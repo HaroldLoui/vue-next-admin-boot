@@ -1,5 +1,6 @@
 package com.hw.demo.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.hw.demo.common.BaseController;
 import com.hw.demo.entity.SysMenu;
 import com.hw.demo.entity.resp.SysMenuResp;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@SaCheckLogin
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/sys/menu")
 public class SysMenuController extends BaseController {
 
     @Autowired

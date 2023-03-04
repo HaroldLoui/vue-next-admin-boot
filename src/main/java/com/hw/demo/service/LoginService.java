@@ -1,8 +1,9 @@
 package com.hw.demo.service;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import com.hw.demo.entity.req.LoginForm;
 
 public interface LoginService {
 
-    String signIn(LoginForm loginForm);
+    SaTokenInfo signIn(LoginForm loginForm);
 }

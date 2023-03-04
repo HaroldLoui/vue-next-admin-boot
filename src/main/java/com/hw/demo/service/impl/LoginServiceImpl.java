@@ -1,5 +1,6 @@
 package com.hw.demo.service.impl;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.hw.demo.entity.SysUser;
@@ -18,7 +19,7 @@ public class LoginServiceImpl implements LoginService {
     private SysUserService sysUserService;
 
     @Override
-    public String signIn(LoginForm loginForm) {
+    public SaTokenInfo signIn(LoginForm loginForm) {
         // 1.校验验证码是否正确
 
         // 2.检查账号密码是否正确
@@ -33,7 +34,7 @@ public class LoginServiceImpl implements LoginService {
         }
         // sa-token登录
         StpUtil.login(sysUser.getId());
-        // 4.获取token并返回
-        return StpUtil.getTokenValue();
+        // 4.获取token信息并返回
+        return StpUtil.getTokenInfo();
     }
 }
