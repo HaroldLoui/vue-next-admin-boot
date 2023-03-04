@@ -5,12 +5,9 @@
 <mapper namespace="com.hw.demo.mapper.SysUserRoleMapper">
 
     <resultMap id="BaseResultMap" type="com.hw.demo.entity.SysUserRole">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="u_id" column="u_id" jdbcType="BIGINT"/>
-            <result property="r_id" column="r_id" jdbcType="BIGINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="uId" column="u_id" jdbcType="BIGINT"/>
+        <result property="rId" column="r_id" jdbcType="BIGINT"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,u_id,r_id
-    </sql>
 </mapper>
