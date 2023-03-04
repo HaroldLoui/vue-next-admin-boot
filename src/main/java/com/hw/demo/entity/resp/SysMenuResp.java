@@ -30,12 +30,22 @@ public class SysMenuResp extends BaseEntity {
     /**
      * 菜单类型（0-菜单，1-按钮）
      */
-    private Integer type;
+    private String menuType;
 
     /**
      * 路由名称
      */
     private String name;
+
+    /**
+     * 组件路径
+     */
+    private String component;
+
+    /**
+     * 是否外链
+     */
+    private Boolean isLink;
 
     /**
      * 路由路径
@@ -48,19 +58,19 @@ public class SysMenuResp extends BaseEntity {
     private String redirect;
 
     /**
-     * 组件路径
-     */
-    private String component;
-
-    /**
      * 菜单排序
      */
-    private Integer sort;
+    private Integer menuSort;
 
     /**
      * 基本信息
      */
     private SysMenuMeta meta;
+
+    /**
+     * 菜单类型为按钮时，权限标识
+     */
+    private String btnPower;
 
     /**
      * 子菜单

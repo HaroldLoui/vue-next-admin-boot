@@ -10,6 +10,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,6 +21,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName(value ="sys_menu")
 @Data
+@Builder
 public class SysMenu extends BaseEntity implements Serializable {
     /**
      * 主键id
@@ -98,7 +100,7 @@ public class SysMenu extends BaseEntity implements Serializable {
     private Integer sort;
 
     /**
-     * 是否隐藏（0-隐藏，1-不隐藏）
+     * 是否隐藏（0-不隐藏，1-隐藏）
      */
     @TableField(value = "is_hide")
     private Integer isHide;
@@ -106,23 +108,23 @@ public class SysMenu extends BaseEntity implements Serializable {
     /**
      * 页面缓存（0-缓存，1-不缓存）
      */
-    @TableField(value = "is_cache")
-    private Integer isCache;
+    @TableField(value = "is_keep_alive")
+    private Integer isKeepAlive;
 
     /**
      * 是否固定（0-固定，1-不固定）
      */
-    @TableField(value = "is_fixed")
-    private Integer isFixed;
+    @TableField(value = "is_affix")
+    private Integer isAffix;
 
     /**
-     * 是否外链（0-是，1-否）
+     * 是否外链（0-否，1-是）
      */
     @TableField(value = "is_link")
     private Integer isLink;
 
     /**
-     * 是否内嵌（0-是，1-否）
+     * 是否内嵌（0-否，1-是）
      */
     @TableField(value = "is_iframe")
     private Integer isIframe;

@@ -2,6 +2,8 @@ package com.hw.demo.entity.resp;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class SysMenuMeta {
 
@@ -16,14 +18,9 @@ public class SysMenuMeta {
     private String icon;
 
     /**
-     * 链接地址
-     */
-    private String link;
-
-    /**
      * 权限标识
      */
-    private String roles;
+    private List<String> roles;
 
     /**
      * 是否隐藏（0-不隐藏，1-隐藏）
@@ -33,17 +30,17 @@ public class SysMenuMeta {
     /**
      * 页面缓存（0-缓存，1-不缓存）
      */
-    private Boolean isCache;
+    private Boolean isKeepAlive;
 
     /**
      * 是否固定（0-固定，1-不固定）
      */
-    private Boolean isFixed;
+    private Boolean isAffix;
 
     /**
      * 是否外链（0-否，1-是）
      */
-    private Boolean isLink;
+    private String isLink;
 
     /**
      * 是否内嵌（0-否，1-是）

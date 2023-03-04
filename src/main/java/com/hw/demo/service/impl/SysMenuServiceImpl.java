@@ -9,6 +9,7 @@ import com.hw.demo.mapper.SysMenuMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,9 +59,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         resp.setPath(sysMenu.getPath());
         resp.setName(sysMenu.getName());
         resp.setComponent(sysMenu.getComponent());
-        resp.setSort(sysMenu.getSort());
-        resp.setType(sysMenu.getType());
+        resp.setMenuSort(sysMenu.getSort());
+        resp.setIsLink(sysMenu.getIsLink() == 1);
+        resp.setMenuType(sysMenu.getType() == 0 ? "menu" : "btn");
         resp.setRedirect(sysMenu.getRedirect());
+        resp.setBtnPower("");
         resp.setMeta(toMeta(sysMenu));
         return resp;
     }
@@ -69,12 +72,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         SysMenuMeta meta = new SysMenuMeta();
         meta.setTitle(sysMenu.getTitle());
         meta.setIcon(sysMenu.getIcon());
-        meta.setLink(sysMenu.getLink());
-        meta.setRoles(sysMenu.getRoles());
-        meta.setIsFixed(sysMenu.getIsFixed() == 0);
-        meta.setIsCache(sysMenu.getIsCache() == 0);
+        meta.setRoles(Arrays.stream(sysMenu.getRoles().split(",")).toList());
+        meta.setIsAffix(sysMenu.getIsAffix() == 0);
+        meta.setIsKeepAlive(sysMenu.getIsKeepAlive() == 0);
         meta.setIsHide(sysMenu.getIsHide() == 1);
-        meta.setIsLink(sysMenu.getIsLink() == 1);
+        meta.setIsLink(sysMenu.getLink());
         meta.setIsIframe(sysMenu.getIsIframe() == 1);
         return meta;
     }
