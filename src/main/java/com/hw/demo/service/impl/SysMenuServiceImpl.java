@@ -60,7 +60,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         resp.setName(sysMenu.getName());
         resp.setComponent(sysMenu.getComponent());
         resp.setMenuSort(sysMenu.getSort());
-        resp.setIsLink(sysMenu.getIsLink() == 1);
+        resp.setIsLink(sysMenu.getIsLink());
         resp.setMenuType(sysMenu.getType() == 0 ? "menu" : "btn");
         resp.setRedirect(sysMenu.getRedirect());
         resp.setBtnPower("");
@@ -73,11 +73,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         meta.setTitle(sysMenu.getTitle());
         meta.setIcon(sysMenu.getIcon());
         meta.setRoles(Arrays.stream(sysMenu.getRoles().split(",")).toList());
-        meta.setIsAffix(sysMenu.getIsAffix() == 0);
-        meta.setIsKeepAlive(sysMenu.getIsKeepAlive() == 0);
-        meta.setIsHide(sysMenu.getIsHide() == 1);
+        meta.setIsAffix(sysMenu.getIsAffix());
+        meta.setIsKeepAlive(sysMenu.getIsKeepAlive());
+        meta.setIsHide(sysMenu.getIsHide());
         meta.setIsLink(sysMenu.getLink());
-        meta.setIsIframe(sysMenu.getIsIframe() == 1);
+        meta.setIsIframe(sysMenu.getIsIframe());
         return meta;
     }
 }

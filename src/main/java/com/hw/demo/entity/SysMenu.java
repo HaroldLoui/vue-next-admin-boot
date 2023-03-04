@@ -100,34 +100,34 @@ public class SysMenu extends BaseEntity implements Serializable {
     private Integer sort;
 
     /**
-     * 是否隐藏（0-不隐藏，1-隐藏）
+     * 是否隐藏
      */
     @TableField(value = "is_hide")
-    private Integer isHide;
+    private Boolean isHide;
 
     /**
-     * 页面缓存（0-缓存，1-不缓存）
+     * 页面缓存
      */
     @TableField(value = "is_keep_alive")
-    private Integer isKeepAlive;
+    private Boolean isKeepAlive;
 
     /**
-     * 是否固定（0-固定，1-不固定）
+     * 是否固定
      */
     @TableField(value = "is_affix")
-    private Integer isAffix;
+    private Boolean isAffix;
 
     /**
-     * 是否外链（0-否，1-是）
+     * 是否外链
      */
     @TableField(value = "is_link")
-    private Integer isLink;
+    private Boolean isLink;
 
     /**
-     * 是否内嵌（0-否，1-是）
+     * 是否内嵌
      */
     @TableField(value = "is_iframe")
-    private Integer isIframe;
+    private Boolean isIframe;
 
     @Serial
     @TableField(exist = false)

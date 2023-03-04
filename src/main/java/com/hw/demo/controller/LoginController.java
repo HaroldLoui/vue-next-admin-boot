@@ -3,7 +3,6 @@ package com.hw.demo.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.SaTokenInfo;
-import cn.dev33.satoken.stp.StpUtil;
 import com.hw.demo.common.BaseController;
 import com.hw.demo.entity.req.LoginForm;
 import com.hw.demo.service.LoginService;
@@ -32,8 +31,7 @@ public class LoginController extends BaseController {
     @SaCheckLogin
     @GetMapping("/signOut")
     public String signOut() {
-        StpUtil.logout(StpUtil.getLoginId());
-
+        loginService.signOut();
         return ok("登出成功");
     }
 }

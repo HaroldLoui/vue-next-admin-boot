@@ -6,4 +6,6 @@ import com.hw.demo.entity.req.LoginForm;
 public interface LoginService {
 
     SaTokenInfo signIn(LoginForm loginForm);
+
+    void signOut();
 }

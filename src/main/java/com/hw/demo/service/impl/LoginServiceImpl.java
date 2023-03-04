@@ -8,6 +8,7 @@ import com.hw.demo.entity.req.LoginForm;
 import com.hw.demo.exception.LoginErrorException;
 import com.hw.demo.service.LoginService;
 import com.hw.demo.service.SysUserService;
+import com.hw.demo.utils.SaSessionUtils;
 import com.hw.demo.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,15 @@ public class LoginServiceImpl implements LoginService {
         }
         // sa-token登录
         StpUtil.login(sysUser.getId());
+        // 保存用户信息到SaSession里
+        SaSessionUtils.setCurrentUser(sysUser);
         // 4.获取token信息并返回
         return StpUtil.getTokenInfo();
+    }
+
+    @Override
+    public void signOut() {
+        StpUtil.logout(StpUtil.getLoginId());
+        SaSessionUtils.clear();
     }
 }
