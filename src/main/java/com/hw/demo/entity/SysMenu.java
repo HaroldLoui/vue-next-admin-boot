@@ -10,7 +10,6 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,7 +20,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName(value ="sys_menu")
 @Data
-@Builder
 public class SysMenu extends BaseEntity implements Serializable {
     /**
      * 主键id

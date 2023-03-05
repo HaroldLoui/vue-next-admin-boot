@@ -43,7 +43,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void signOut() {
-        StpUtil.logout(StpUtil.getLoginId());
+        // 1. 清空SaSession
         SaSessionUtils.clear();
+        // 2. 调用logout方法，一定要在最后调用
+        StpUtil.logout(StpUtil.getLoginId());
     }
 }

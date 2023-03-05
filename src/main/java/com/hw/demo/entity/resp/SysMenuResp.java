@@ -8,7 +8,7 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * 构造成前端需要的数据结构
+ * 前端需要的数据结构
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -71,6 +71,11 @@ public class SysMenuResp extends BaseEntity {
      * 菜单类型为按钮时，权限标识
      */
     private String btnPower;
+
+    /**
+     * 父级组件路径
+     */
+    private List<String>  menuSuperior;
 
     /**
      * 子菜单

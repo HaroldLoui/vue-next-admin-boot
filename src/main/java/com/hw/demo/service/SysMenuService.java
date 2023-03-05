@@ -14,4 +14,8 @@ import java.util.List;
 public interface SysMenuService extends IService<SysMenu> {
 
     List<SysMenuResp> getMenuList();
+
+    void deleteMenu(Long id);
+
+    void deleteMenuForce(Long id);
 }

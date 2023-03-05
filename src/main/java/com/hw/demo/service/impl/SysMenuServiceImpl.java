@@ -1,9 +1,12 @@
 package com.hw.demo.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hw.demo.entity.SysMenu;
 import com.hw.demo.entity.resp.SysMenuMeta;
 import com.hw.demo.entity.resp.SysMenuResp;
+import com.hw.demo.exception.BusinessException;
 import com.hw.demo.service.SysMenuService;
 import com.hw.demo.mapper.SysMenuMapper;
 import org.springframework.stereotype.Service;
@@ -27,31 +30,79 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return toList(list());
     }
 
+    @Override
+    public void deleteMenu(Long id) {
+        // 检查id是否存在
+        SysMenu sysMenu = getById(id);
+        if (sysMenu == null) {
+            // 若不存在则直接返回
+            return;
+        }
+        // 查询子菜单
+        List<SysMenu> children = lambdaQuery().eq(SysMenu::getParentId, id).list();
+        if (CollectionUtil.isNotEmpty(children)) {
+            throw new BusinessException("该菜单存在子菜单，无法删除");
+        }
+        // 删除
+        removeById(id);
+    }
+
+    @Override
+    public void deleteMenuForce(Long id) {
+        // 检查id是否存在
+        SysMenu sysMenu = getById(id);
+        if (sysMenu == null) {
+            // 若不存在则直接返回
+            return;
+        }
+        // 查询子菜单
+        List<SysMenu> children = lambdaQuery().eq(SysMenu::getParentId, id).list();
+        if (CollectionUtil.isNotEmpty(children)) {
+            List<Long> idList = toList(children).stream().map(SysMenuResp::getId).toList();
+            // 批量删除所有子菜单
+            removeBatchByIds(idList, idList.size());
+        }
+        // 删除自身
+        removeById(id);
+    }
+
+    /**
+     * 获取最顶级的菜单列表
+     */
     private List<SysMenuResp> toList(List<SysMenu> list) {
         List<SysMenuResp> results = new ArrayList<>();
         for (SysMenu sysMenu : list) {
             if (sysMenu.getParentId() == 0) {
                 SysMenuResp resp = toResp(sysMenu);
                 // 递归处理
-                resp.setChildren(getChildren(sysMenu, list));
+                resp.setChildren(getChildren(resp, list));
                 results.add(resp);
             }
         }
         return results;
     }
 
-    private List<SysMenuResp> getChildren(SysMenu sysMenu, List<SysMenu> list) {
+    /**
+     * 递归在<code>list</code>中获取<code>resp</code>的子菜单
+     */
+    private List<SysMenuResp> getChildren(SysMenuResp resp, List<SysMenu> list) {
         List<SysMenuResp> children = new ArrayList<>();
         for (SysMenu menu : list) {
-            if (Objects.equals(menu.getParentId(), sysMenu.getId())) {
+            if (Objects.equals(menu.getParentId(), resp.getId())) {
                 SysMenuResp child = toResp(menu);
-                child.setChildren(getChildren(menu, list));
+                List<String> menuSuperior = new ArrayList<>(ObjectUtil.defaultIfNull(resp.getMenuSuperior(), new ArrayList<>()));
+                menuSuperior.add(resp.getId().toString());
+                child.setMenuSuperior(menuSuperior);
+                child.setChildren(getChildren(child, list));
                 children.add(child);
             }
         }
         return children;
     }
 
+    /**
+     * 构造成前端需要的数据结构
+     */
     private SysMenuResp toResp(SysMenu sysMenu) {
         SysMenuResp resp = new SysMenuResp();
         resp.setId(sysMenu.getId());
@@ -68,6 +119,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return resp;
     }
 
+    /**
+     * 转成Meta
+     */
     private SysMenuMeta toMeta(SysMenu sysMenu) {
         SysMenuMeta meta = new SysMenuMeta();
         meta.setTitle(sysMenu.getTitle());
