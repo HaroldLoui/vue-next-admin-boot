@@ -21,6 +21,7 @@ import lombok.EqualsAndHashCode;
 @TableName(value ="sys_menu")
 @Data
 public class SysMenu extends BaseEntity implements Serializable {
+
     /**
      * 主键id
      */

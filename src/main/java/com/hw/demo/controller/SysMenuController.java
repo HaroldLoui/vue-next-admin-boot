@@ -1,11 +1,9 @@
 package com.hw.demo.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.hutool.core.util.ObjectUtil;
 import com.hw.demo.common.BaseController;
 import com.hw.demo.entity.SysMenu;
 import com.hw.demo.entity.resp.SysMenuResp;
-import com.hw.demo.exception.PrimaryKeyNotNullException;
 import com.hw.demo.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -42,7 +40,7 @@ public class SysMenuController extends BaseController {
      */
     @PostMapping("/save")
     public String save(@RequestBody @Validated SysMenu sysMenu) {
-        sysMenuService.save(sysMenu);
+        sysMenuService.saveMenu(sysMenu);
         return ok("新增菜单成功");
     }
 
@@ -51,10 +49,7 @@ public class SysMenuController extends BaseController {
      */
     @PutMapping("/update")
     public String update(@RequestBody @Validated SysMenu sysMenu) {
-        if (ObjectUtil.isNull(sysMenu.getId())) {
-            throw new PrimaryKeyNotNullException();
-        }
-        sysMenuService.updateById(sysMenu);
+        sysMenuService.updateMenu(sysMenu);
         return ok("修改菜单成功");
     }
 

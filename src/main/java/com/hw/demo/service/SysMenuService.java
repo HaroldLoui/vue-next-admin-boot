@@ -15,6 +15,10 @@ public interface SysMenuService extends IService<SysMenu> {
 
     List<SysMenuResp> getMenuList();
 
+    void saveMenu(SysMenu sysMenu);
+
+    void updateMenu(SysMenu sysMenu);
+
     void deleteMenu(Long id);
 
     void deleteMenuForce(Long id);
