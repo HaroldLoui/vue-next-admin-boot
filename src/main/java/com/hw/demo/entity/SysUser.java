@@ -10,6 +10,7 @@ import java.io.Serial;
 import com.hw.demo.annotations.Desensitization;
 import com.hw.demo.common.BaseEntity;
 import com.hw.demo.enums.DesensitizationType;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -35,6 +36,7 @@ public class SysUser extends BaseEntity {
      * 用户名
      */
     @TableField(value = "username")
+    @NotEmpty(message = "用户名不能为空")
     private String username;
 
     /**
@@ -42,6 +44,12 @@ public class SysUser extends BaseEntity {
      */
     @TableField(value = "password")
     private String password;
+
+    /**
+     * 昵称
+     */
+    @TableField(value = "nickname")
+    private String nickname;
 
     /**
      * 手机号码
@@ -58,8 +66,14 @@ public class SysUser extends BaseEntity {
     private String email;
 
     /**
-     * 0-正常 1-封禁 2-删除
+     * 0-正常 1-封禁
      */
     @TableField(value = "status")
     private Integer status;
+
+    /**
+     * 账号类型：0-超级管理员、1-普通管理员、2-普通用户
+     */
+    @TableField(value = "type")
+    private Integer type;
 }

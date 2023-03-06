@@ -1,7 +1,9 @@
 package com.hw.demo.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hw.demo.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hw.demo.entity.req.SysUserReq;
 
 /**
 * @author hanwei
@@ -10,4 +12,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SysUserService extends IService<SysUser> {
 
+    void saveUser(SysUser sysUser);
+
+    void updateUser(SysUser sysUser);
+
+    Page<SysUser> getPage(SysUserReq req);
+
+    void deleteUser(Long id);
 }
