@@ -4,14 +4,12 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hw.demo.entity.SysMenu;
-import com.hw.demo.entity.SysUser;
 import com.hw.demo.entity.resp.SysMenuMeta;
 import com.hw.demo.entity.resp.SysMenuResp;
 import com.hw.demo.exception.BusinessException;
 import com.hw.demo.exception.PrimaryKeyNotNullException;
 import com.hw.demo.service.SysMenuService;
 import com.hw.demo.mapper.SysMenuMapper;
-import com.hw.demo.utils.SaSessionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,8 +33,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public void saveMenu(SysMenu sysMenu) {
-        SysUser user = SaSessionUtils.getCurrentUser();
-        sysMenu.setCreateUser(user.getId());
         save(sysMenu);
     }
 
@@ -45,8 +41,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if (ObjectUtil.isNull(sysMenu.getId())) {
             throw new PrimaryKeyNotNullException();
         }
-        SysUser user = SaSessionUtils.getCurrentUser();
-        sysMenu.setUpdateUser(user.getId());
         updateById(sysMenu);
     }
 
