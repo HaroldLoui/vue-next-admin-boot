@@ -1,6 +1,8 @@
 package com.hw.demo.utils;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONWriter;
 import com.hw.demo.entity.SysUser;
 
 public class SaSessionUtils {
@@ -8,11 +10,13 @@ public class SaSessionUtils {
     private static final String CURRENT_USER_KEY = "current_user_key";
 
     public static void setCurrentUser(SysUser sysUser) {
-        StpUtil.getSession().set(CURRENT_USER_KEY, sysUser);
+        String json = JSON.toJSONString(sysUser, JSONWriter.Feature.WriteNulls, JSONWriter.Feature.BrowserCompatible);
+        StpUtil.getSession().set(CURRENT_USER_KEY, json);
     }
 
     public static SysUser getCurrentUser() {
-        return (SysUser) StpUtil.getSession().get(CURRENT_USER_KEY);
+        String json = (String) StpUtil.getSession().get(CURRENT_USER_KEY);
+        return JSON.parseObject(json, SysUser.class);
     }
 
     public static void set(String key, Object val) {

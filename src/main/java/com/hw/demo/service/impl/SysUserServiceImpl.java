@@ -10,6 +10,7 @@ import com.hw.demo.exception.BusinessException;
 import com.hw.demo.exception.PrimaryKeyNotNullException;
 import com.hw.demo.service.SysUserService;
 import com.hw.demo.mapper.SysUserMapper;
+import com.hw.demo.utils.SaSessionUtils;
 import com.hw.demo.utils.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -28,21 +29,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     public Page<SysUser> getPage(SysUserReq req) {
         req.setPageNum(ObjectUtil.defaultIfNull(req.getPageNum(), 1));
         req.setPageSize(ObjectUtil.defaultIfNull(req.getPageSize(), 10));
-        Page<SysUser> page = Page.of(req.getPageNum(), req.getPageSize());
         return lambdaQuery()
                 .like(StringUtils.isNotEmpty(req.getUsername()), SysUser::getUsername, req.getUsername())
                 .like(StringUtils.isNotEmpty(req.getNickname()), SysUser::getNickname, req.getNickname())
                 .like(StringUtils.isNotEmpty(req.getPhone()), SysUser::getPhone, req.getPhone())
                 .like(StringUtils.isNotEmpty(req.getEmail()), SysUser::getEmail, req.getEmail())
                 .eq(ObjectUtil.isNotNull(req.getStatus()), SysUser::getStatus, req.getStatus())
-                .page(page);
+                .page(Page.of(req.getPageNum(), req.getPageSize()));
     }
 
     @Override
     public void saveUser(SysUser sysUser) {
-        if (StringUtils.isEmpty(sysUser.getPassword())) {
-            sysUser.setPassword(SecureUtil.md5(DEFAULT_PASSWORD));
-        }
+        sysUser.setPassword(SecureUtil.md5(DEFAULT_PASSWORD).toUpperCase());
+        sysUser.setCreateUser(SaSessionUtils.getCurrentUser().getId());
         save(sysUser);
     }
 
@@ -51,6 +50,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         if (ObjectUtil.isNull(sysUser.getId())) {
             throw new PrimaryKeyNotNullException("id不能为空");
         }
+        sysUser.setUpdateUser(SaSessionUtils.getCurrentUser().getId());
         updateById(sysUser);
     }
 

@@ -6,11 +6,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serial;
+import jakarta.validation.constraints.NotEmpty;
 
 import com.hw.demo.annotations.Desensitization;
 import com.hw.demo.common.BaseEntity;
 import com.hw.demo.enums.DesensitizationType;
-import jakarta.validation.constraints.NotEmpty;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -66,14 +67,20 @@ public class SysUser extends BaseEntity {
     private String email;
 
     /**
-     * 0-正常 1-封禁
+     * 1-正常 0-封禁
      */
     @TableField(value = "status")
-    private Integer status;
+    private Boolean status;
 
     /**
      * 账号类型：0-超级管理员、1-普通管理员、2-普通用户
      */
     @TableField(value = "type")
     private Integer type;
+
+    /**
+     * 备注
+     */
+    @TableField(value = "remark")
+    private String remark;
 }
