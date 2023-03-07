@@ -1,5 +1,6 @@
 package com.hw.demo.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hw.demo.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SysRoleService extends IService<SysRole> {
 
+    Page<SysRole> getPage(int pageNum, int limit);
 }

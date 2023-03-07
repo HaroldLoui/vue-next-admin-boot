@@ -1,5 +1,6 @@
 package com.hw.demo.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hw.demo.entity.SysRole;
 import com.hw.demo.service.SysRoleService;
@@ -15,6 +16,10 @@ import org.springframework.stereotype.Service;
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
     implements SysRoleService{
 
+    @Override
+    public Page<SysRole> getPage(int pageNum, int limit) {
+        return page(Page.of(pageNum, limit));
+    }
 }
 
 
