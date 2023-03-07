@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SaCheckLogin
 @RestController
-@RequestMapping("/sys/user")
+@RequestMapping("/sys/role")
 public class SysRoleController extends BaseController {
 
     @Autowired
@@ -27,9 +28,15 @@ public class SysRoleController extends BaseController {
         return ok("查询成功", page);
     }
 
-    @PostMapping("save")
+    @PostMapping("/save")
     public String save(@RequestBody @Validated SysRole sysRole) {
         sysRoleService.save(sysRole);
+        return ok("新增成功");
+    }
+
+    @PutMapping("update")
+    public String update(@RequestBody @Validated SysRole sysRole) {
+        sysRoleService.updateById(sysRole);
         return ok("新增成功");
     }
 }
