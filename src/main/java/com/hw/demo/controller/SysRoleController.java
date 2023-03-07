@@ -36,10 +36,10 @@ public class SysRoleController extends BaseController {
         return ok("新增成功");
     }
 
-    @PutMapping("update")
+    @PutMapping("/update")
     public String update(@RequestBody @Validated SysRole sysRole) {
         sysRoleService.updateById(sysRole);
-        return ok("新增成功");
+        return ok("修改成功");
     }
 
     @DeleteMapping("/delete")
