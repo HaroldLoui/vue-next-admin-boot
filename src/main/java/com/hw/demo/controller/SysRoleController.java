@@ -7,10 +7,12 @@ import com.hw.demo.entity.SysRole;
 import com.hw.demo.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @SaCheckLogin
@@ -31,5 +33,11 @@ public class SysRoleController extends BaseController {
     public String save(@RequestBody @Validated SysRole sysRole) {
         sysRoleService.save(sysRole);
         return ok("新增成功");
+    }
+
+    @DeleteMapping("/delete")
+    public String delete(@RequestParam Long id) {
+        sysRoleService.removeById(id);
+        return ok("删除成功");
     }
 }
