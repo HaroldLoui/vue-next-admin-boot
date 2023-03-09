@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serial;
-import jakarta.validation.constraints.NotEmpty;
 
 import com.hw.demo.annotations.Desensitization;
 import com.hw.demo.common.BaseEntity;
@@ -37,7 +36,6 @@ public class SysUser extends BaseEntity {
      * 用户名
      */
     @TableField(value = "username")
-    @NotEmpty(message = "用户名不能为空")
     private String username;
 
     /**

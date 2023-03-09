@@ -33,15 +33,21 @@ public class SysUserController extends BaseController {
     }
 
     @PostMapping("/save")
-    public String save(@RequestBody @Validated SysUser sysUser) {
+    public String save(@RequestBody SysUser sysUser) {
         sysUserService.saveUser(sysUser);
         return ok("新增用户信息成功");
     }
 
     @PutMapping("/update")
-    public String update(@RequestBody @Validated SysUser sysUser) {
+    public String update(@RequestBody SysUser sysUser) {
         sysUserService.updateUser(sysUser);
         return ok("修改用户信息成功");
+    }
+
+    @PutMapping("/updatePwd")
+    public String updatePwd(@RequestBody SysUser sysUser) {
+        sysUserService.updatePwd(sysUser);
+        return ok("修改密码成功");
     }
 
     @DeleteMapping("/delete")

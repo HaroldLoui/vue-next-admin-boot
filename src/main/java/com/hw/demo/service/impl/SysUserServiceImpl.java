@@ -40,6 +40,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Override
     public void saveUser(SysUser sysUser) {
+        if (StringUtils.isEmpty(sysUser.getUsername())) {
+            throw new BusinessException("用户名不能为空");
+        }
         sysUser.setPassword(SecureUtil.md5(DEFAULT_PASSWORD).toUpperCase());
         sysUser.setCreateUser(SaSessionUtils.getCurrentUser().getId());
         save(sysUser);
@@ -51,6 +54,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             throw new PrimaryKeyNotNullException("id不能为空");
         }
         sysUser.setUpdateUser(SaSessionUtils.getCurrentUser().getId());
+        updateById(sysUser);
+    }
+
+    @Override
+    public void updatePwd(SysUser sysUser) {
+        if (ObjectUtil.isNull(sysUser.getId())) {
+            throw new PrimaryKeyNotNullException("id不能为空");
+        }
+        if (StringUtils.isEmpty(sysUser.getPassword())) {
+            throw new BusinessException("密码不能为空");
+        }
+        String newPassword = SecureUtil.md5(sysUser.getPassword()).toUpperCase();
+        sysUser.setPassword(newPassword);
+        SysUser currentUser = SaSessionUtils.getCurrentUser();
+        sysUser.setUpdateUser(currentUser.getId());
         updateById(sysUser);
     }
 

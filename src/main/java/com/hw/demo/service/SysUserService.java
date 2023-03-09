@@ -12,11 +12,13 @@ import com.hw.demo.entity.req.SysUserReq;
 */
 public interface SysUserService extends IService<SysUser> {
 
+    Page<SysUser> getPage(SysUserReq req);
+
     void saveUser(SysUser sysUser);
 
     void updateUser(SysUser sysUser);
 
-    Page<SysUser> getPage(SysUserReq req);
+    void updatePwd(SysUser sysUser);
 
     void deleteUser(Long id);
 }
