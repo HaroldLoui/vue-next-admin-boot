@@ -1,6 +1,7 @@
 package com.hw.demo.utils;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 import com.hw.demo.entity.SysUser;
@@ -33,5 +34,9 @@ public class SaSessionUtils {
 
     public static void clear() {
         StpUtil.getSession().clear();
+    }
+
+    public static boolean isSuper(SysUser sysUser) {
+        return ObjectUtil.isNotNull(sysUser) && sysUser.getType() == 0;
     }
 }

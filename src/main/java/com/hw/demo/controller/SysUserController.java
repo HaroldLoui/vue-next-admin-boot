@@ -1,14 +1,12 @@
 package com.hw.demo.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hw.demo.common.BaseController;
 import com.hw.demo.entity.SysUser;
 import com.hw.demo.entity.req.SysUserReq;
 import com.hw.demo.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

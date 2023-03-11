@@ -65,6 +65,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         if (StringUtils.isEmpty(sysUser.getPassword())) {
             throw new BusinessException("密码不能为空");
         }
+        SysUser existUser = getById(sysUser.getId());
+        if (SaSessionUtils.isSuper(existUser)) {
+            throw new BusinessException("超级管理员不能更改密码");
+        }
         String newPassword = SecureUtil.md5(sysUser.getPassword()).toUpperCase();
         sysUser.setPassword(newPassword);
         SysUser currentUser = SaSessionUtils.getCurrentUser();
