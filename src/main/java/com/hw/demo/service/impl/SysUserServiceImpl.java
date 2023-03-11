@@ -43,6 +43,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         if (StringUtils.isEmpty(sysUser.getUsername())) {
             throw new BusinessException("用户名不能为空");
         }
+        if (SaSessionUtils.isSuper(sysUser)) {
+            throw new BusinessException("无法新增超级管理员账号");
+        }
         sysUser.setPassword(SecureUtil.md5(DEFAULT_PASSWORD).toUpperCase());
         sysUser.setCreateUser(SaSessionUtils.getCurrentUser().getId());
         save(sysUser);
@@ -52,6 +55,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     public void updateUser(SysUser sysUser) {
         if (ObjectUtil.isNull(sysUser.getId())) {
             throw new PrimaryKeyNotNullException("id不能为空");
+        }
+        SysUser existUser = getById(sysUser.getId());
+        if (SaSessionUtils.isSuper(existUser)) {
+            throw new BusinessException("无法修改超级管理员账户信息");
         }
         sysUser.setUpdateUser(SaSessionUtils.getCurrentUser().getId());
         updateById(sysUser);
@@ -67,7 +74,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         }
         SysUser existUser = getById(sysUser.getId());
         if (SaSessionUtils.isSuper(existUser)) {
-            throw new BusinessException("超级管理员不能更改密码");
+            throw new BusinessException("不能修改超级管理员账号密码");
         }
         String newPassword = SecureUtil.md5(sysUser.getPassword()).toUpperCase();
         sysUser.setPassword(newPassword);
@@ -79,8 +86,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Override
     public void deleteUser(Long id) {
         SysUser existUser = getById(id);
-        if (existUser != null && existUser.getType() == 0) {
-            throw new BusinessException("超级管理员账号无法删除");
+        if (SaSessionUtils.isSuper(existUser)) {
+            throw new BusinessException("无法删除超级管理员账号");
         }
         removeById(id);
     }

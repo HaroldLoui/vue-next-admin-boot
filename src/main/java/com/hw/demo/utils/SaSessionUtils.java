@@ -37,6 +37,6 @@ public class SaSessionUtils {
     }
 
     public static boolean isSuper(SysUser sysUser) {
-        return ObjectUtil.isNotNull(sysUser) && sysUser.getType() == 0;
+        return ObjectUtil.isNotNull(sysUser) && ObjectUtil.equal(sysUser.getType(), 0);
     }
 }
